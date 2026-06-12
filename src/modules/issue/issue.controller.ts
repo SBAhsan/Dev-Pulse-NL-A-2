@@ -12,6 +12,11 @@ const createIssue = async (req: Request, res: Response) => {
     }
 }
 
+
+const getAllIssues = async (req: Request, res: Response) => {
+
+}
+
 export const issueController = {
-    createIssue
+    createIssue, getAllIssues
 }

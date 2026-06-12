@@ -1,7 +1,10 @@
+import config from "../../config";
 import { pool } from "../../db";
 import type { IUserLogin } from "./auth.interface";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
-const loginUserInDB = async(payload: any) => {
+const loginUserInDB = async(payload: IUserLogin) => {
 
     const {email, password} = payload;
 
@@ -15,7 +18,24 @@ const loginUserInDB = async(payload: any) => {
 
     const user = userData.rows[0];
 
-    console.log(user);
+    const matchPassword = await bcrypt.compare(password, user.password);
+
+    if(!matchPassword){
+        throw new Error("Invalid Credentials");
+    }
+
+    const jwtPayload = {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        role: user.role
+    }
+
+    const accessToken = jwt.sign(jwtPayload, config.access_key , {expiresIn: config.access_token_expires_in as any});
+    
+    const refreshToken = jwt.sign(jwtPayload, config.refresh_key, {expiresIn: config.refresh_token_expires_in as any});
+
+    return {accessToken, refreshToken};
 }
 
 export const authService = {

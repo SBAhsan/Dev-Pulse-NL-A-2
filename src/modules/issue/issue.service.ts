@@ -13,6 +13,10 @@ const createIssueInDB = async (reporter_id: string, payload: any) => {
 
   console.log(reporter_id);
 
+  if(reporterCheck.rows.length === 0){
+    throw new Error("Reporter Does Not Exist")
+  }
+
   const result = await pool.query(
     `
         INSERT INTO issues (title, description, type)
@@ -25,6 +29,11 @@ const createIssueInDB = async (reporter_id: string, payload: any) => {
   return result;
 };
 
+
+const getAllIssuesFromDB = async () => {
+
+}
+
 export const issueService = {
-  createIssueInDB,
+  createIssueInDB, getAllIssuesFromDB
 };
