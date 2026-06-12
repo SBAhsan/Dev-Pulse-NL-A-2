@@ -31,7 +31,11 @@ const createIssueInDB = async (reporter_id: string, payload: any) => {
 
 
 const getAllIssuesFromDB = async () => {
+    const result = await pool.query(`
+        SELECT * FROM issues
+        `);
 
+        return result;
 }
 
 export const issueService = {
