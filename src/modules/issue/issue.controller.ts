@@ -6,13 +6,11 @@ const createIssue = async (req: Request, res: Response) => {
   try {
     // const { id } = req.params;
     const reporter_id = (req as any).user.id;
-    console.log(reporter_id);
+
     const result = await issueService.createIssueInDB(
       reporter_id as string,
       req.body,
     );
-
-    // console.log(result);
 
     if (result) {
       res.status(200).json({
@@ -99,6 +97,13 @@ const updateIssue = async (req: Request, res: Response) => {
             `,
         [id],
       );
+
+      if(issue.rows[0].status !== "open"){
+        return res.status(403).json({
+          success: false,
+          message: "This issue is not open",
+        });
+      }
 
       if (issue.rows.length === 0) {
         return res

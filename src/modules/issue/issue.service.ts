@@ -51,11 +51,11 @@ const getSingleIssueFromDB = async (id: string) => {
 const updateIssueInDB = async (id: string, payload: {
     title: string,
     description: string,
-    type: string
+    type: string,
 }) => {
     const {title, description, type} = payload;
 
-    const result = await pool.query(`
+        const result = await pool.query(`
         UPDATE issues
         SET title=$1, description=$2, type=$3
         WHERE id=$4
