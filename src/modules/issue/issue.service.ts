@@ -19,11 +19,11 @@ const createIssueInDB = async (reporter_id: string, payload: any) => {
 
   const result = await pool.query(
     `
-        INSERT INTO issues (title, description, type)
-        VALUES ($1, $2, $3)
+        INSERT INTO issues (title, description, type, reporter_id)
+        VALUES ($1, $2, $3, $4)
         RETURNING *
         `,
-    [title, description, type],
+    [title, description, type, reporter_id],
   );
 
   return result;

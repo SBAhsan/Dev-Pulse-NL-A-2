@@ -14,3 +14,8 @@ Method: GET | URL: /api/users? | Time: 1781333172514
 Method: GET | URL: /api/users | Time: 1781333281402
 Method: GET | URL: /api/users? | Time: 1781333448024
 Method: GET | URL: /api/users? | Time: 1781333452452
+Method: GET | URL: /api/users? | Time: 1781337524197
+Method: GET | URL: /api/users? | Time: 1781337967485
+Method: POST | URL: /api/issues/9 | Time: 1781341613919
+Method: POST | URL: /api/issues/9 | Time: 1781341664473
+Method: POST | URL: /api/issues/9 | Time: 1781341680356

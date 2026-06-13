@@ -1,12 +1,11 @@
 import type { Request, Response } from "express";
 import { issueService } from "./issue.service";
-import { userService } from "../user/user.service";
 
 const createIssue = async (req: Request, res: Response) => {
   try {
-    const reporterId = req.params.id;
+    const {id} = req.params;
     const result = await issueService.createIssueInDB(
-      reporterId as string,
+      id as string,
       req.body,
     );
 
