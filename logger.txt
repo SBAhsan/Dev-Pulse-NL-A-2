@@ -12,3 +12,5 @@ Method: POST | URL: /api/auth/login | Time: 1781332933897
 Method: GET | URL: /api/users? | Time: 1781333074370
 Method: GET | URL: /api/users? | Time: 1781333172514
 Method: GET | URL: /api/users | Time: 1781333281402
+Method: GET | URL: /api/users? | Time: 1781333448024
+Method: GET | URL: /api/users? | Time: 1781333452452
