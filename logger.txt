@@ -1,0 +1,14 @@
+Method: GET | URL: / | Time: 1781331595955
+Method: GET | URL: /users | Time: 1781331660452
+Method: GET | URL: /api/users | Time: 1781331673725
+Method: GET | URL: /api/users | Time: 1781332535402
+Method: GET | URL: /api/users | Time: 1781332544753
+Method: GET | URL: /api/users | Time: 1781332552014
+Method: GET | URL: /api/users | Time: 1781332581243
+Method: GET | URL: /api/users/7 | Time: 1781332615623
+Method: GET | URL: /api/users | Time: 1781332641510
+Method: POST | URL: /api/auth/login | Time: 1781332761357
+Method: POST | URL: /api/auth/login | Time: 1781332933897
+Method: GET | URL: /api/users? | Time: 1781333074370
+Method: GET | URL: /api/users? | Time: 1781333172514
+Method: GET | URL: /api/users | Time: 1781333281402
