@@ -66,6 +66,30 @@ const updateIssueInDB = async (id: string, payload: {
 };
 
 
+const updateIssueStatusInDB = async (id: string, status: string) => {
+    const allStatus = ['open', 'in_progress', 'resolved'];
+
+    if(!allStatus.includes(status)){
+        throw new Error ("Invalid status");
+    }
+
+    const updateStatus = await pool.query(`
+        UPDATE issues
+        SET status=$1
+        WHERE id=$2
+        RETURNING *
+        `, [status, id]);
+
+        if(updateStatus.rows.length === 0){
+            throw new Error ("Issue not found");
+        }
+
+        const result = updateStatus.rows[0];
+
+        return result;
+}
+
+
 const deleteIssueFromDB = async (id: string) => {
     const result = await pool.query(`
         DELETE FROM issues
@@ -80,5 +104,6 @@ export const issueService = {
   getAllIssuesFromDB,
   getSingleIssueFromDB,
   updateIssueInDB,
+  updateIssueStatusInDB,
   deleteIssueFromDB
 };

@@ -7,7 +7,10 @@ const createIssue = async (req: Request, res: Response) => {
     // const { id } = req.params;
     const reporter_id = (req as any).user.id;
     console.log(reporter_id);
-    const result = await issueService.createIssueInDB(reporter_id as string, req.body);
+    const result = await issueService.createIssueInDB(
+      reporter_id as string,
+      req.body,
+    );
 
     // console.log(result);
 
@@ -104,12 +107,10 @@ const updateIssue = async (req: Request, res: Response) => {
       }
 
       if (issue.rows[0].reporter_id !== user.id) {
-        return res
-          .status(403)
-          .json({
-            success: false,
-            message: "You can only update your own issues",
-          });
+        return res.status(403).json({
+          success: false,
+          message: "You can only update your own issues",
+        });
       }
     }
 
@@ -125,6 +126,35 @@ const updateIssue = async (req: Request, res: Response) => {
       res.status(401).json({
         success: false,
         message: "Failed updating issue",
+        data: {},
+      });
+    }
+  } catch (error: any) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+const updateIssueStatus = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+
+    const result = await issueService.updateIssueStatusInDB(
+      id as string,
+      req.body.status,
+    );
+    if (result) {
+      res.status(200).json({
+        success: true,
+        message: "Issue status updated successfully",
+        data: result,
+      });
+    } else {
+      res.status(401).json({
+        success: false,
+        message: "Failed updating issue status",
         data: {},
       });
     }
@@ -166,5 +196,6 @@ export const issueController = {
   getAllIssues,
   getSingleIssue,
   updateIssue,
+  updateIssueStatus,
   deleteIssue,
 };

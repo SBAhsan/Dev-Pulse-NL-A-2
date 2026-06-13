@@ -10,7 +10,9 @@ router.get("/", issueController.getAllIssues);
 
 router.get("/:id", issueController.getSingleIssue);
 
-router.put("/:id", authMiddleware('contributor', 'maintainer'), issueController.updateIssue);
+router.patch("/:id", authMiddleware('contributor', 'maintainer'), issueController.updateIssue);
+
+router.patch("/:id/status", authMiddleware('maintainer'), issueController.updateIssueStatus);
 
 router.delete("/:id", authMiddleware('maintainer'), issueController.deleteIssue)
 

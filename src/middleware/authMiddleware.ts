@@ -5,12 +5,11 @@ import { pool } from "../db";
 
 const authMiddleware = (...roles: string[]) => {
   return async (req: Request, res: Response, next: NextFunction) => {
-    console.log(req.headers.authorization);
 
     const token = req.headers.authorization;
 
     if (!token) {
-      res.status(401).json({
+      return res.status(401).json({
         success: false,
         message: "Unauthorized access!",
       });
@@ -26,7 +25,7 @@ const authMiddleware = (...roles: string[]) => {
         `, [decodeToken.email]);
 
     if(userData.rows.length === 0){
-        res.status(404).json({
+        return res.status(404).json({
         success: false,
         message: "User not found",
       });
