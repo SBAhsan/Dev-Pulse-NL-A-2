@@ -18,7 +18,7 @@ const authMiddleware = (...roles: string[]) => {
 
     const decodeToken = jwt.verify(token as string, config.access_key) as JwtPayload;
 
-    console.log(decodeToken);
+    // console.log(decodeToken);
 
     const userData = await pool.query(`
         SELECT * FROM users

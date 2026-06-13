@@ -1,13 +1,13 @@
 import type { Request, Response } from "express";
 import { issueService } from "./issue.service";
+import { pool } from "../../db";
 
 const createIssue = async (req: Request, res: Response) => {
   try {
-    const {id} = req.params;
-    const result = await issueService.createIssueInDB(
-      id as string,
-      req.body,
-    );
+    // const { id } = req.params;
+    const reporter_id = (req as any).user.id;
+    console.log(reporter_id);
+    const result = await issueService.createIssueInDB(reporter_id as string, req.body);
 
     // console.log(result);
 
@@ -87,6 +87,31 @@ const getSingleIssue = async (req: Request, res: Response) => {
 const updateIssue = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
+    const user = (req as any).user;
+
+    if (user.role === "contributor") {
+      const issue = await pool.query(
+        `
+            SELECT * FROM issues WHERE id=$1
+            `,
+        [id],
+      );
+
+      if (issue.rows.length === 0) {
+        return res
+          .status(404)
+          .json({ success: false, message: "Issue not found" });
+      }
+
+      if (issue.rows[0].reporter_id !== user.id) {
+        return res
+          .status(403)
+          .json({
+            success: false,
+            message: "You can only update your own issues",
+          });
+      }
+    }
 
     const result = await issueService.updateIssueInDB(id as string, req.body);
 

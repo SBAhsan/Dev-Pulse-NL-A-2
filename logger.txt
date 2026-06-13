@@ -19,3 +19,16 @@ Method: GET | URL: /api/users? | Time: 1781337967485
 Method: POST | URL: /api/issues/9 | Time: 1781341613919
 Method: POST | URL: /api/issues/9 | Time: 1781341664473
 Method: POST | URL: /api/issues/9 | Time: 1781341680356
+Method: POST | URL: /api/auth/login | Time: 1781350088986
+Method: POST | URL: /api/issues | Time: 1781350225024
+Method: POST | URL: /api/issues | Time: 1781350279313
+Method: POST | URL: /api/issues | Time: 1781350369591
+Method: POST | URL: /api/issues | Time: 1781350544471
+Method: POST | URL: /api/issues | Time: 1781350606790
+Method: POST | URL: /api/auth/login | Time: 1781350728074
+Method: PUT | URL: /api/issues/7 | Time: 1781350797810
+Method: POST | URL: /api/auth/login | Time: 1781350839709
+Method: PUT | URL: /api/issues/7 | Time: 1781350882022
+Method: PUT | URL: /api/issues/7 | Time: 1781350900433
+Method: PUT | URL: /api/issues/7 | Time: 1781350953077
+Method: PUT | URL: /api/issues/7 | Time: 1781359226070

@@ -11,8 +11,6 @@ const createIssueInDB = async (reporter_id: string, payload: any) => {
     [reporter_id],
   );
 
-  console.log(reporter_id);
-
   if (reporterCheck.rows.length === 0) {
     throw new Error("Reporter Does Not Exist");
   }
