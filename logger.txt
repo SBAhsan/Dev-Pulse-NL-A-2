@@ -66,3 +66,5 @@ Method: POST | URL: /api/auth/login | Time: 1781381098830
 Method: PATCH | URL: /api/issues/8/status | Time: 1781381156932
 Method: POST | URL: /api/auth/login | Time: 1781381182628
 Method: PATCH | URL: /api/issues/8 | Time: 1781381208790
+Method: POST | URL: /api/auth/login | Time: 1781420227600
+Method: POST | URL: /api/auth/login | Time: 1781421078988
