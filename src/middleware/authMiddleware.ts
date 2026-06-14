@@ -17,8 +17,6 @@ const authMiddleware = (...roles: string[]) => {
 
     const decodeToken = jwt.verify(token as string, config.access_key) as JwtPayload;
 
-    // console.log(decodeToken);
-
     const userData = await pool.query(`
         SELECT * FROM users
         WHERE email=$1
@@ -33,7 +31,8 @@ const authMiddleware = (...roles: string[]) => {
 
     const user = userData.rows[0];
 
-    (req as any).user = user;
+    // (req as any).user = user;
+    req.user = user;
 
     if(roles.length > 0 && !roles.includes(user.role)){
         return res.status(403).json({
