@@ -18,11 +18,20 @@ const loginUser = async (req: Request, res: Response) => {
             message: "User logged in successfully",
             data: result
         })
-    } catch (error) {
-        
-    }
+    } catch (error: any) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+      error: error.detail,
+    });
+  }
+};
+
+
+const refreshToken = async (req: Request, res: Response) => {
+    console.log(req.cookies);
 }
 
 export const authController = {
-    loginUser
+    loginUser, refreshToken
 }

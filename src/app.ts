@@ -7,6 +7,7 @@ import { userRoute } from "./modules/user/user.route";
 import { issueRoute } from "./modules/issue/issue.route";
 import { authRoute } from "./modules/auth/auth.route";
 import logger from "./middleware/logger";
+import cookieParser from "cookie-parser";
 
 
 export const app: Application = express();
@@ -14,6 +15,7 @@ export const app: Application = express();
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(logger);
+app.use(cookieParser());
 
 app.get("/", (req: Request, res: Response) => {
   res.status(200).json({
