@@ -73,3 +73,9 @@ Method: POST | URL: /api/auth/resfresh-token | Time: 1781446269954
 Method: POST | URL: /api/auth/refresh-token | Time: 1781446293018
 Method: POST | URL: /api/auth/refresh-token | Time: 1781447050557
 Method: POST | URL: /api/auth/refresh-token | Time: 1781452417128
+Method: PATCH | URL: /api/issues/8 | Time: 1781505344108
+Method: PATCH | URL: /api/issues/8 | Time: 1781505357223
+Method: PATCH | URL: /api/issues/8 | Time: 1781505415780
+Method: PATCH | URL: /api/issues/8 | Time: 1781505565290
+Method: PATCH | URL: /api/issues/8 | Time: 1781505575466
+Method: PATCH | URL: /api/issues/8 | Time: 1781505876659

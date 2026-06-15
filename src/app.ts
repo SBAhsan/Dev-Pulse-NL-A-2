@@ -8,7 +8,8 @@ import { issueRoute } from "./modules/issue/issue.route";
 import { authRoute } from "./modules/auth/auth.route";
 import logger from "./middleware/logger";
 import cookieParser from "cookie-parser";
-
+import cors from "cors";
+import globalErrorHandler from "./globalErrorHandler/globalErrorHandler";
 
 export const app: Application = express();
 
@@ -16,6 +17,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(logger);
 app.use(cookieParser());
+app.use(cors());
 
 app.get("/", (req: Request, res: Response) => {
   res.status(200).json({
@@ -27,5 +29,7 @@ app.use('/api/users', userRoute);
 app.use('/api/issues', issueRoute);
 app.use('/api/auth', authRoute);
 
+
+app.use(globalErrorHandler);
 
 export default app;

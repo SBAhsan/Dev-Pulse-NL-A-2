@@ -5,43 +5,51 @@ import { pool } from "../db";
 
 const authMiddleware = (...roles: string[]) => {
   return async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const token = req.headers.authorization;
 
-    const token = req.headers.authorization;
+      if (!token) {
+        return res.status(401).json({
+          success: false,
+          message: "Unauthorized access!",
+        });
+      }
 
-    if (!token) {
-      return res.status(401).json({
-        success: false,
-        message: "Unauthorized access!",
-      });
-    }
+      const decodeToken = jwt.verify(
+        token as string,
+        config.access_key,
+      ) as JwtPayload;
 
-    const decodeToken = jwt.verify(token as string, config.access_key) as JwtPayload;
-
-    const userData = await pool.query(`
+      const userData = await pool.query(
+        `
         SELECT * FROM users
         WHERE email=$1
-        `, [decodeToken.email]);
+        `,
+        [decodeToken.email],
+      );
 
-    if(userData.rows.length === 0){
+      if (userData.rows.length === 0) {
         return res.status(404).json({
-        success: false,
-        message: "User not found",
-      });
-    }
+          success: false,
+          message: "User not found",
+        });
+      }
 
-    const user = userData.rows[0];
+      const user = userData.rows[0];
 
-    // (req as any).user = user;
-    req.user = user;
+      req.user = user;
 
-    if(roles.length > 0 && !roles.includes(user.role)){
+      if (roles.length > 0 && !roles.includes(user.role)) {
         return res.status(403).json({
-        success: false,
-        message: "Forbidden! You do not have permission.",
-      });
-    }
+          success: false,
+          message: "Forbidden! You do not have permission.",
+        });
+      }
 
-    next();
+      next();
+    } catch (error) {
+      next(error);
+    }
   };
 };
 
