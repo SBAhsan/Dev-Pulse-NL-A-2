@@ -86,3 +86,6 @@ Method: GET | URL: /api/issues/6 | Time: 1781515236375
 Method: GET | URL: /api/issues/7 | Time: 1781515329983
 Method: GET | URL: /api/issues | Time: 1781515497362
 Method: POST | URL: /api/auth/register | Time: 1781533226972
+Method: GET | URL: /api/issues | Time: 1781538875841
+Method: GET | URL: /api/issues/7 | Time: 1781538897836
+Method: GET | URL: /api/issues/7 | Time: 1781540201222
