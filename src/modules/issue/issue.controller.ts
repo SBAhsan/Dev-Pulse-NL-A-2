@@ -1,6 +1,7 @@
 import type { Request, Response } from "express";
 import { issueService } from "./issue.service";
 import { pool } from "../../db";
+import sendResponse from "../../utility/sendResponse";
 
 const createIssue = async (req: Request, res: Response) => {
   try {
@@ -13,20 +14,23 @@ const createIssue = async (req: Request, res: Response) => {
     );
 
     if (result) {
-      res.status(200).json({
+      sendResponse(res, {
+        statusCode: 200,
         success: true,
-        message: "Reported issue successfully",
+        message: "Issue created successfully",
         data: result.rows,
       });
     } else {
-      res.status(401).json({
+      sendResponse(res, {
+        statusCode: 401,
         success: false,
-        message: "Failed reporting issue",
+        message: "Failed creating issue",
         data: {},
       });
     }
   } catch (error: any) {
-    res.status(500).json({
+    sendResponse(res, {
+      statusCode: 500,
       success: false,
       message: error.message,
     });
@@ -38,20 +42,23 @@ const getAllIssues = async (req: Request, res: Response) => {
     const result = await issueService.getAllIssuesFromDB();
 
     if (result) {
-      res.status(200).json({
+      sendResponse(res, {
+        statusCode: 200,
         success: true,
-        message: "Fetched all the issues successfully",
+        message: "Issues retrieved successfully",
         data: result.rows,
       });
     } else {
-      res.status(401).json({
+      sendResponse(res, {
+        statusCode: 401,
         success: false,
-        message: "Failed fetching issues",
+        message: "Failed retrieving issues",
         data: {},
       });
     }
   } catch (error: any) {
-    res.status(500).json({
+    sendResponse(res, {
+      statusCode: 500,
       success: false,
       message: error.message,
     });
@@ -65,20 +72,23 @@ const getSingleIssue = async (req: Request, res: Response) => {
     const result = await issueService.getSingleIssueFromDB(id as string);
 
     if (result) {
-      res.status(200).json({
+      sendResponse(res, {
+        statusCode: 200,
         success: true,
-        message: "Fetched the issue successfully",
-        data: result.rows,
+        message: "Issue retrieved successfully",
+        data: result,
       });
     } else {
-      res.status(401).json({
+      sendResponse(res, {
+        statusCode: 401,
         success: false,
-        message: "Failed fetching issue",
+        message: "Failed retrieving issue",
         data: {},
       });
     }
   } catch (error: any) {
-    res.status(500).json({
+    sendResponse(res, {
+      statusCode: 500,
       success: false,
       message: error.message,
     });
@@ -98,21 +108,25 @@ const updateIssue = async (req: Request, res: Response) => {
         [id],
       );
 
-      if(issue.rows[0].status !== "open"){
-        return res.status(403).json({
+      if (issue.rows[0].status !== "open") {
+        sendResponse(res, {
+          statusCode: 403,
           success: false,
           message: "This issue is not open",
         });
       }
 
       if (issue.rows.length === 0) {
-        return res
-          .status(404)
-          .json({ success: false, message: "Issue not found" });
+        sendResponse(res, {
+          statusCode: 404,
+          success: false,
+          message: "Issue not found",
+        });
       }
 
       if (issue.rows[0].reporter_id !== user.id) {
-        return res.status(403).json({
+        sendResponse(res, {
+          statusCode: 403,
           success: false,
           message: "You can only update your own issues",
         });
@@ -122,20 +136,23 @@ const updateIssue = async (req: Request, res: Response) => {
     const result = await issueService.updateIssueInDB(id as string, req.body);
 
     if (result) {
-      res.status(200).json({
+      sendResponse(res, {
+        statusCode: 200,
         success: true,
         message: "Issue updated successfully",
         data: result.rows,
       });
     } else {
-      res.status(401).json({
+      sendResponse(res, {
+        statusCode: 401,
         success: false,
         message: "Failed updating issue",
         data: {},
       });
     }
   } catch (error: any) {
-    res.status(500).json({
+    sendResponse(res, {
+      statusCode: 500,
       success: false,
       message: error.message,
     });
@@ -151,20 +168,23 @@ const updateIssueStatus = async (req: Request, res: Response) => {
       req.body.status,
     );
     if (result) {
-      res.status(200).json({
+      sendResponse(res, {
+        statusCode: 200,
         success: true,
         message: "Issue status updated successfully",
         data: result,
       });
     } else {
-      res.status(401).json({
+      sendResponse(res, {
+        statusCode: 401,
         success: false,
         message: "Failed updating issue status",
         data: {},
       });
     }
   } catch (error: any) {
-    res.status(500).json({
+    sendResponse(res, {
+      statusCode: 500,
       success: false,
       message: error.message,
     });
@@ -178,18 +198,21 @@ const deleteIssue = async (req: Request, res: Response) => {
     const result = await issueService.deleteIssueFromDB(id as string);
 
     if (result) {
-      res.status(200).json({
+      sendResponse(res, {
+        statusCode: 200,
         success: true,
         message: "Issue deleted successfully",
       });
     } else {
-      res.status(401).json({
+      sendResponse(res, {
+        statusCode: 401,
         success: false,
         message: "Failed deleting issue",
       });
     }
   } catch (error: any) {
-    res.status(500).json({
+    sendResponse(res, {
+      statusCode: 500,
       success: false,
       message: error.message,
     });

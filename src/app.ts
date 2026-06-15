@@ -14,10 +14,14 @@ import globalErrorHandler from "./globalErrorHandler/globalErrorHandler";
 export const app: Application = express();
 
 app.use(express.json());
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 app.use(logger);
 app.use(cookieParser());
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+  }),
+);
 
 app.get("/", (req: Request, res: Response) => {
   res.status(200).json({
@@ -25,10 +29,9 @@ app.get("/", (req: Request, res: Response) => {
   });
 });
 
-app.use('/api/users', userRoute);
-app.use('/api/issues', issueRoute);
-app.use('/api/auth', authRoute);
-
+app.use("/api/users", userRoute);
+app.use("/api/issues", issueRoute);
+app.use("/api/auth", authRoute);
 
 app.use(globalErrorHandler);
 

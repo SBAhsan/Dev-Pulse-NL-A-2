@@ -4,8 +4,6 @@ import authMiddleware from "../../middleware/authMiddleware";
 
 const router = Router();
 
-router.post('/', userController.createUser);
-
 router.get('/', authMiddleware(), userController.getAllUsers);
 
 router.get('/:id', userController.getSingleUser);
